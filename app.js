@@ -91,7 +91,7 @@
         grid,
         U.h("p", {
           class: "original",
-          text: "原文：" + (t.source || "手动添加"),
+          raw: true, text: t.source || "手动添加",
         }),
         U.actions(
           U.button("移除任务", () => {

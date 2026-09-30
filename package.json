@@ -1,6 +1,6 @@
 {
   "name": "pandao-meeting",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "description": "提取会议行动项，编辑负责人和截止日期后导出。",
   "license": "MIT",

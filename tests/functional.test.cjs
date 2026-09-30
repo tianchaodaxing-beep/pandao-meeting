@@ -1,0 +1,11 @@
+const test=require('node:test'); const assert=require('node:assert/strict'); const B=require('../core.js');
+test("明确负责人和日期核对",()=>{const r=B.tasks('负责人：张三，请在2026-10-05提交报价。','2026-09-30');assert.equal(r.length,1);assert.equal(r[0].owner,'张三');assert.equal(r[0].due,'2026-10-05');assert.equal(r[0].source,'负责人：张三，请在2026-10-05提交报价。');});
+test("未知负责人留空",()=>{assert.equal(B.tasks('请整理资料。','2026-09-30')[0].owner,'');});
+test("泛指催办不被识别为人名",()=>{assert.equal(B.tasks('请尽快完成资料。','2026-09-30')[0].owner,'');});
+test("未知日期留空",()=>{assert.equal(B.tasks('张三负责整理资料。','2026-09-30')[0].due,'');});
+test("明天跨月处理",()=>{assert.equal(B.dateIn('明天','2026-09-30'),'2026-10-01');});
+test("下周五以会议日期为基准",()=>{assert.equal(B.dateIn('下周五','2026-09-30'),'2026-10-09');});
+test("今天跨年处理",()=>{assert.equal(B.dateIn('明天','2026-12-31'),'2027-01-01');});
+test("不存在的日期留空",()=>{assert.equal(B.dateIn('2026-02-30','2026-09-30'),'');});
+test("普通陈述不产生任务",()=>{assert.equal(B.tasks('本次讨论的是库存与价格。','2026-09-30').length,0);});
+test("空文字被拒绝",()=>{assert.throws(()=>B.tasks('  ','2026-09-30'));});

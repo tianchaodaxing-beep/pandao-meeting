@@ -8,4 +8,5 @@ test("下周五以会议日期为基准",()=>{assert.equal(B.dateIn('下周五',
 test("今天跨年处理",()=>{assert.equal(B.dateIn('明天','2026-12-31'),'2027-01-01');});
 test("不存在的日期留空",()=>{assert.equal(B.dateIn('2026-02-30','2026-09-30'),'');});
 test("普通陈述不产生任务",()=>{assert.equal(B.tasks('本次讨论的是库存与价格。','2026-09-30').length,0);});
+test("讨论采购周期不是行动项",()=>{assert.equal(B.tasks('本次讨论涉及采购周期和报价有效期。','2026-09-30').length,0);});
 test("空文字被拒绝",()=>{assert.throws(()=>B.tasks('  ','2026-09-30'));});
